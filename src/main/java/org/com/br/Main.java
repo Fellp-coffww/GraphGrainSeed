@@ -4,13 +4,14 @@ import org.com.br.models.DeviceRoute;
 import org.com.br.models.Graph;
 import org.com.br.sources.XmlBuilderDrive;
 
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static void main(String[] args) {
 
-        init("src/main/resources/Rota.xml");
+        init("GraphGrainSeed/src/main/resources/Rota.xml");
 
     }
     public static void init(String file){
@@ -25,7 +26,7 @@ public class Main {
 
         System.out.println("");
 
-        //rota.exportExcel(graph1.getRoutes());
+        rota.exportExcel(graph1.getRoutes(), graph1.getMicroRoutes());
 
     }
 }

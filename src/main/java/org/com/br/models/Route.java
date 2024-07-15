@@ -1,5 +1,4 @@
 package org.com.br.models;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
