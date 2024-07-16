@@ -92,12 +92,14 @@ public class XmlBuilderDrive {
     }
 
     // Método que exporta rotas para um arquivo Excel
-    public void exportExcel(ArrayList<String> routes, ArrayList<String> microroutes) {
+    public void exportExcel(ArrayList<String> routes, ArrayList<String> microroutes,ArrayList<String> routeWithMicroRoute) {
         DateTimeFormatter dt1 = DateTimeFormatter.ofPattern("dd_MM_YYYY_hh_mm");
 
         Workbook workbook = new XSSFWorkbook();
         Sheet rotas = workbook.createSheet("Rotas");
         Sheet microRotas = workbook.createSheet("Micro Rotas");
+        Sheet microRotascomRotas = workbook.createSheet("Rotas_Micro Rotas");
+
         int rowIndex = 0;
         for (String route : routes) {
             String[] routeArray = route.replace(" ---> ", " ").split(" ");
@@ -127,6 +129,20 @@ public class XmlBuilderDrive {
             }
             rowIndex++;
         }
+        rowIndex = 0;
+        for (String micro : routeWithMicroRoute) {
+            String[] routeArray = micro.replace(" ---> ", " ").replace("--->"," ").split(" ");
+            Row row = microRotascomRotas.createRow(rowIndex);
+            int cellIndex = 0;
+            for (String cellValue : routeArray) {
+                if (!cellValue.isEmpty()) {
+                    Cell cell = row.createCell(cellIndex);
+                    cell.setCellValue(cellValue);
+                    cellIndex++;
+                }
+            }
+            rowIndex++;
+        }
         try (FileOutputStream fileOut = new FileOutputStream("rotas"+ LocalDateTime.now().format(dt1)+".xlsx")) {
             workbook.write(fileOut);
         } catch (IOException e) {
@@ -145,7 +161,7 @@ public class XmlBuilderDrive {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element element = (Element) nodeList.item(i);
             if (typeObjectDrawIO(element) == 2) {
-                DeviceRoute deviceRoute = new DeviceRoute(element.getAttribute(ID), element.getAttribute(VALUE), "0", "0",2);
+                DeviceRoute deviceRoute = new DeviceRoute(element.getAttribute(ID), element.getAttribute(VALUE).trim(), "0", "0",2);
                 graph1.addVertice(deviceRoute);
                 deviceRouteArrayList.add(deviceRoute);
             }

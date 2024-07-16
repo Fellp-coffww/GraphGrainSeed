@@ -4,10 +4,6 @@ import org.com.br.models.DeviceRoute;
 import org.com.br.models.Graph;
 import org.com.br.sources.XmlBuilderDrive;
 
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 public class Main {
     public static void main(String[] args) {
 
@@ -24,9 +20,7 @@ public class Main {
 
         graph1.generateRotas();
 
-        System.out.println("");
-
-        rota.exportExcel(graph1.getRoutes(), graph1.getMicroRoutes());
+        rota.exportExcel(graph1.getRoutes(), graph1.getMicroRoutes(), graph1.getMicroRoutesWithRoute());
 
     }
 }
